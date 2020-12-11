@@ -70,12 +70,12 @@ public class State {
 		return neighbors;
 	}
 	
-	private LinkedList<Car> cloneCars(LinkedList<Car> cars) {//
-		LinkedList<Car> newcars = new LinkedList<>();
-		for(Car car : cars){
-			newcars.add(car.clone());
+	private LinkedList<Car> cloneCars(LinkedList<Car> cars) {//membuat object-object cars
+		LinkedList<Car> newcars = new LinkedList<>();// membuat linklist untuk car baru
+		for(Car car : cars){// loop object car lalu masukkan ke variable yang bernama cars
+			newcars.add(car.clone());// menambahkan object baru bertipe cars ke newCars
 		}
-		return newcars;
+		return newcars;// mengembalikan newCars
 	}
 
 
