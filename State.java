@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author ASUS FX504
+ * @author Denise ,Mhd Anggie,  Rajasa Cika
  */
 
 public class State {
@@ -26,43 +26,43 @@ public class State {
 	
 	public ArrayList<State> getNeighbors(){
 		ArrayList<State> neighbors = new ArrayList<>();
-		LinkedList<Car> cars = this.puzzle.cars; 
-		for (int i = 0; i < cars.size(); i++) {
-			Car car = cars.get(i);
-			if(car.isVertical()){
-				LinkedList<Car> newcars = cloneCars(cars);
-				Car newcar = newcars.get(i);
-				while(puzzle.canMoveDown(newcar)){
-					newcar.moveDown();
-					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars)));
-					newcars = cloneCars(newcars);
-					newcar = newcars.get(i);
+		LinkedList<Car> cars = this.puzzle.cars; //membuat linkedList baru berobjekkan car yang berisikan cars dari kelas Puzzle
+		for (int i = 0; i < cars.size(); i++) { //selama posisi titik awal lebih kecil dari mobil
+			Car car = cars.get(i); //untuk mendapat posisi dari puzzle yang available
+			if(car.isVertical()){ //jika posisi dari mobil adalah Vertikal
+				LinkedList<Car> newcars = cloneCars(cars); //membuat linkedList berobjekan Car dengan memanggil cloneCars 
+				Car newcar = newcars.get(i); //membuat variable baru untuk mendapat posisi yang available 
+				while(puzzle.canMoveDown(newcar)){ //looping selama car bisa berpindah ke bawah
+					newcar.moveDown(); //newcar akan berpindah ke bawah
+					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars)));// newcar akan ditambahkan menjadi neighboor baru dalam puzzle
+					newcars = cloneCars(newcars);//memanggil variable newcars baru untuk dimasukkan kedalam newcars
+					newcar = newcars.get(i); //untuk mendapat posisi yang available
 				}
-				newcars = cloneCars(cars);
-				newcar = newcars.get(i);
-				while(puzzle.canMoveUp(newcar)){
-					newcar.moveUp();
-					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars)));
-					newcars = cloneCars(newcars);
-					newcar = newcars.get(i);
+				newcars = cloneCars(cars);//memanggil variable newcars baru untuk dimasukkan kedalam newcars
+				newcar = newcars.get(i); //untuk mendapat posisi yang available
+				while(puzzle.canMoveUp(newcar)){ //looping selama car bisa berpindah ke atas
+					newcar.moveUp(); //newcar akan berpindah ke atas
+					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars)));// newcar akan ditambahkan menjadi neighboor baru dalam puzzle
+					newcars = cloneCars(newcars);//memanggil variable newcars baru untuk dimasukkan kedalam newcars
+					newcar = newcars.get(i); //untuk mendapat posisi yang available
 				}
 			}
-			else if(car.isHorizontal()){
-				LinkedList<Car> newcars = cloneCars(cars);
-				Car newcar = newcars.get(i);
-				while(puzzle.canMoveRight(newcar)){
-					newcar.moveRight();
-					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars)));
-					newcars = cloneCars(newcars);
-					newcar = newcars.get(i);
+			else if(car.isHorizontal()){ //jika posisi dari mobil adalah Horizontal
+				LinkedList<Car> newcars = cloneCars(cars); //membuat linkedList berobjekan Car dengan memanggil cloneCars 
+				Car newcar = newcars.get(i); //membuat variable baru untuk mendapat posisi yang available 
+				while(puzzle.canMoveRight(newcar)){ //looping selama newcar bisa berpindah ke kanan didalam puzzle
+					newcar.moveRight(); //newcar akan berpindah ke sebelah kanan
+					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars)));// newcar akan ditambahkan menjadi neighboor baru dalam puzzle
+					newcars = cloneCars(newcars);//memanggil variable newcars baru untuk dimasukkan kedalam newcars
+					newcar = newcars.get(i); //untuk mendapat posisi yang available
 				}
-				newcars = cloneCars(cars);
-				newcar = newcars.get(i);
-				while(puzzle.canMoveLeft(newcar)){
-					newcar.moveLeft();
-					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars)));
-					newcars = cloneCars(newcars);
-					newcar = newcars.get(i);
+				newcars = cloneCars(cars); //membuat car baru
+				newcar = newcars.get(i); //untuk mendapat posisi yang available 
+				while(puzzle.canMoveLeft(newcar)){ //looping selama newcar bisa berpindah ke kiri didalam puzzle
+					newcar.moveLeft(); //newcar akan berpindah ke sebelah kiri 
+					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars))); // newcar akan ditambahkan menjadi neighboor baru dalam puzzle
+					newcars = cloneCars(newcars); //memanggil variable newcars untuk dimasukkan kedalam newcars
+					newcar = newcars.get(i); //untuk mendapat posisi yang available
 				}
 			}
 		}
@@ -89,50 +89,54 @@ public class State {
 		System.out.println(this.toString());//print tiap baris dari hasi yang telah diterima dari method toString
 	}
 	
-	public String toString(){
-		char[][] output = new char[puzzle.gridSize][puzzle.gridSize];
-		for (int i = 0; i < output.length; i++) {
-			for (int j = 0; j < output.length; j++) {
-				output[i][j] = '.';
+	public String toString(){ //Untuk mengeluarkan output dalam bentuk format String
+		char[][] output = new char[puzzle.gridSize][puzzle.gridSize]; //variable ukuran grid puzzle untuk menyimpan ke array of char dari kelas Puzzle
+		for (int i = 0; i < output.length; i++) { //selama i (baris) tidak melebihi panjang output maka masuk ke dalam loop
+			for (int j = 0; j < output.length; j++) { //selama j (kolom) tidak melebihi panjang output maka masuk ke dalam loop
+				output[i][j] = '.'; //variable char output i dan j akan mengeluarkan String .
 			}
 		}
-		for(Car car : puzzle.cars){
-			if(car.isHorizontal()){
-				if(car.size == 2){
-					if(car.equals(puzzle.getRedCar())){
-						output[car.x][car.y] = '=';
-						output[car.x][car.y+1] = '=';
+		for(Car car : puzzle.cars){ //membuat object cars yang akan dimasukkan ke dalam linkedList<car>
+			if(car.isHorizontal()){ //selama posisi car horizontal
+				if(car.size == 2){ //selama ukuran dari car adalah 2 (berapa banyak kotak yang dipakai)
+					if(car.equals(puzzle.getRedCar())){ //mengecak apakah objek car yang baru sama dengan objek car yang sudah ada
+						output[car.x][car.y] = '='; //jika titik pertama untuk mobil adalah red car maka keluaranya adalah =
+						output[car.x][car.y+1] = '='; //jika titik kedua untuk mobil adalah red car maka keluaranya adalah =
 					}
 					else{
-						output[car.x][car.y] = '*';
-						output[car.x][car.y+1] = '*';
+						output[car.x][car.y] = '*'; //jika terjadi crash pada titik pertama maka keluarannya adalah *
+						output[car.x][car.y+1] = '*'; //jika terjadi crash pada titik kedua maka keluarannya adalah *
 					}
 				}
-				else if(car.size == 3){
-					output[car.x][car.y] = '#';
-					output[car.x][car.y+1] = '#';
-					output[car.x][car.y+2] = '#';
+				else if(car.size == 3){ //selama ukuran dari car adalah 3 (berapa banyak kotak yang dipakai) dan berorientasi Horizontal 
+                                                        //dan ditandai oleh simbol pagar(#)
+					output[car.x][car.y] = '#'; //untuk posisi pertama mobil yang berukuran 3 maka keluarannya adalah #
+					output[car.x][car.y+1] = '#';//untuk posisi kedua mobil yang berukuran 3 maka keluarannya adalah #
+					output[car.x][car.y+2] = '#';//untuk posisi ketiga mobil yang berukuran 3 maka keluarannya adalah #
 				}
 			}
-			else if(car.isVertical()){
-				if(car.size == 2){
-					output[car.x][car.y] = '+';
-					output[car.x+1][car.y] = '+';
+			else if(car.isVertical()){ //selama posisi car adalah Vertical maka keluarannya akan ditandai oleh simbol plus(+)
+                            
+				if(car.size == 2){ //selama ukuran dari car adalah 2 (berapa banyak kotak yang dipakai) dan berorientasi Vertical 
+                                                   //dan ditandai oleh simbol plus(+)
+					output[car.x][car.y] = '+'; //untuk posisi pertama mobil yang berukuran 2 maka keluarannya adalah +
+					output[car.x+1][car.y] = '+'; //untuk posisi kedua mobil yang berukuran 2 maka keluarannya adalah +
 				}
-				else if(car.size == 3){
-					output[car.x][car.y] = '@';
-					output[car.x+1][car.y] = '@';
-					output[car.x+2][car.y] = '@';
+				else if(car.size == 3){//selama ukuran dari car adalah 3 (berapa banyak kotak yang dipakai) dan berorientasi Vertical 
+                                                   //dan ditandai oleh simbol add(@)
+					output[car.x][car.y] = '@'; //untuk posisi pertama mobil yang berukuran 3 maka keluarannya adalah @
+					output[car.x+1][car.y] = '@'; //untuk posisi kedua mobil yang berukuran 3 maka keluarannya adalah @
+					output[car.x+2][car.y] = '@';//untuk posisi ketiga mobil yang berukuran 3 maka keluarannya adalah @
 				}
 			}
 		}
 		
-		String result = "";
-		for (int i = 0; i < output.length; i++) {
-			result += new String(output[i]) + "\n";
+		String result = ""; //atribut untuk menyimpan hasil
+		for (int i = 0; i < output.length; i++) { //looping selama i tidak melebihi panjang output
+			result += new String(output[i]) + "\n"; // akan mengeluarkan String dari output(yang berisi simbol-simbol) dan sebuah baris baru
 		}
 		
-		return result;
+		return result; //mengembalikan hasil result
 	}
 	
 	public Puzzle getPuzzle() {// mengambil object puzzle

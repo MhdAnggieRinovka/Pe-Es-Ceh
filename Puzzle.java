@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author ASUS FX504
+ * @authorDenise ,Mhd Anggie,  Rajasa Cika
  */
 
 public class Puzzle {

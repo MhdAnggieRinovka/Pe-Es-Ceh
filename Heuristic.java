@@ -6,7 +6,7 @@
 
 /**
  *
- * @author ASUS FX504
+ * @author Denise ,Mhd Anggie,  Rajasa Cika
  */
 
 public abstract class Heuristic {
