@@ -6,7 +6,7 @@
 
 /**
  *
- * @author Denise ,Mhd Anggie,  Rajasa Cika
+ * @author Denise ,Mhd Anggie,  Rajasa Cikal
  */
 import java.util.Comparator;
 import java.util.HashMap;

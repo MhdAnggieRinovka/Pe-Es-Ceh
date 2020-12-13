@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @authorDenise ,Mhd Anggie,  Rajasa Cika
+ * @authorDenise ,Mhd Anggie,  Rajasa Cikal
  */
 
 public class Puzzle {
