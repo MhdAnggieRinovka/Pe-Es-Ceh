@@ -17,36 +17,36 @@ import java.util.Scanner;
 
 public class RushHour {
 	
-	public Scanner in;
+	public Scanner in; //atribut scanner
 	
-	public PriorityQueue<State> pq;
+	public PriorityQueue<State> pq; //atribut PriorityQueue dengan tipe State
 	
-	private LinkedList<State> searchAStar(Puzzle puzzle, Heuristic heuristic) {
-		HashMap<State, State> predecessor = new HashMap<>();
-		HashMap<String, Boolean> visited = new HashMap<>();
-		State src = new State(puzzle);
-		State goal = null;
-		src.setCost(0);
-		pq.add(src);
-		visited.put(src.toString(), true);
-		while(!pq.isEmpty()){
-			State u = pq.poll();
-			if(u.isGoal()){
-				goal = u;
+	private LinkedList<State> searchAStar(Puzzle puzzle, Heuristic heuristic) { //method searchAStar, merupakan method untuk mencari A* dengan parameter puzzle dan heuristic
+		HashMap<State, State> predecessor = new HashMap<>(); //menginisialisasi HasMap dengan nama predecessor dengan key berupa State dan value berupa State
+		HashMap<String, Boolean> visited = new HashMap<>();//menginisialisasi HasMap dengan nama visited dengan key berupa String dan value berupa boolean
+		State src = new State(puzzle); //membuat state baru src dengan parameter puzzle
+		State goal = null; //membuat state goal dengan inisialisasi value berupa null
+		src.setCost(0); //memasukan cost awal pada src dengan 0
+		pq.add(src); //memasukan state src kedalam PriorityQueue 
+		visited.put(src.toString(), true); //menyimpan key state src, dan value true kedalam HashMap visited, untuk menandakan bahwa state src telah di visit
+		while(!pq.isEmpty()){ //looping selama PriorityQueue belum kosong
+			State u = pq.poll(); //membuat state baru dengan nama u, yang berisi pengambilan elemen pertama dari antrian PriorityQueue pq
+			if(u.isGoal()){ //jika state u merupakan state goal dengan memanbbil isGoal() dari kelas State
+				goal = u; //mengisi state goal dengan state u yang merupakan elemen pertama dari PriorityQueue pq
 				break;
 			}
-			for(State v : u.getNeighbors()){
-				int cost = u.cost + 1 + heuristic.getValue(v);
-				if(!contains(visited, v)){
-					v.setCost(cost);
-					pq.add(v);
-					predecessor.put(v, u);
-					visited.put(v.toString(), true);
+			for(State v : u.getNeighbors()){ //melakukan looping for each, dengan memasukan tetangga dari state u kedalam state baru bernama state v
+				int cost = u.cost + 1 + heuristic.getValue(v); //membuat cost yang berisi cost dari state u + 1 + value dari movement heuristic
+				if(!contains(visited, v)){ //jika  v belum di visit
+					v.setCost(cost); //menyimpan cost dari state v dengan int cost dibaris 39
+					pq.add(v); //menambah state v kedalam PriorityQueue pq ke urutan paling belakang
+					predecessor.put(v, u); //memasukan state v sebagai key dan state u sebagai value kedalam hashmap predecessor
+					visited.put(v.toString(), true); //membuat state v yang sekarang, sudah di visit
 				}
 			}
 		}
 		
-		return getPath(predecessor, goal);
+		return getPath(predecessor, goal); //mereturn getPath dengan parameter hashmap predecessor dan state goal
 	}
 
 	private boolean contains(HashMap<String, Boolean> visited, State v) {
@@ -109,50 +109,50 @@ public class RushHour {
 		return new Puzzle(size, cars);
 	}
 	
-	private void run() {
-		pq = new PriorityQueue<State>(10, new Comparator<State>() {
+	private void run() { //method run dipanggil di method main pada kelas ini (RushHour)
+		pq = new PriorityQueue<State>(10, new Comparator<State>() { //membuat PriorityQueue baru
 			
-			@Override
-			public int compare(State o1, State o2) {
-				return o1.cost - o2.cost;
+			@Override //mengoverride compare dari Comparator
+			public int compare(State o1, State o2) { //melakukan compare antara 01 dan 02
+				return o1.cost - o2.cost; //mengembalikan cost yang merupakan hasil dari cost 01 dikurang cos 02
 			}
 			
 		});
 		
-		in = new Scanner(System.in);
+		in = new Scanner(System.in); //menginisialisasi in dengan scanner
 		
-		Puzzle puzzle = readInput();
+		Puzzle puzzle = readInput(); //membuat readInput puzzle
 		
-		Heuristic heuristic1 = new Heuristic1();
-		Heuristic heuristic2 = new Heuristic2();
+		Heuristic heuristic1 = new Heuristic1(); //menginisialisasi Heuristic1
+		Heuristic heuristic2 = new Heuristic2(); //menginisialisasi Heuristic2 
 		
-		long startTime = System.currentTimeMillis();
-		LinkedList<State> path1 = searchAStar(puzzle, heuristic1);
-		long endTime = System.currentTimeMillis();
-		long timeTaken1 = endTime - startTime;
+		long startTime = System.currentTimeMillis(); //memasukan current time dalam milisecond ke dalam startTime sebagai waktu awal dimulai dari dijalankannya method searchAStar
+		LinkedList<State> path1 = searchAStar(puzzle, heuristic1); //menjalankan method searchAStar dengan parameter puzzle dan heuristic1
+		long endTime = System.currentTimeMillis(); //memasukan current time dalam milisecond ke dalam endTime sebagai waktu berhenti dari dijalankannya method searchAStar
+		long timeTaken1 = endTime - startTime; //mencari total waktu dijalankannya program dengan mengurangi waktu berhenti dengan waktu mulai dan dimasukan kedalam timeTaken1
 		
-		startTime = System.currentTimeMillis();
-		LinkedList<State> path2 = searchAStar(puzzle, heuristic2);
-		endTime = System.currentTimeMillis();
-		long timeTaken2 = endTime - startTime;
+		startTime = System.currentTimeMillis();//memasukan current time dalam milisecond ke dalam startTime sebagai waktu awal dimulai dari dijalankannya method searchAStar
+		LinkedList<State> path2 = searchAStar(puzzle, heuristic2);//menjalankan method searchAStar dengan parameter puzzle dan heuristic2
+		endTime = System.currentTimeMillis();//memasukan current time dalam milisecond ke dalam endTime sebagai waktu berhenti dari dijalankannya method searchAStar
+		long timeTaken2 = endTime - startTime;//mencari total waktu dijalankannya program dengan mengurangi waktu berhenti dengan waktu mulai dan dimasukan kedalam timeTaken1
 		
-		System.out.println("Solution using Heuristic.");
-		System.out.println("#########################");
-		print(path1);
-		System.out.println("Time taken using heuristic : " + timeTaken1);
+		System.out.println("Solution using Heuristic."); //mengeprint ke layar 
+		System.out.println("#########################"); //mengeprint ke layar
+		print(path1); //mengeprint ke layar LinkedList dari path1
+		System.out.println("Time taken using heuristic : " + timeTaken1); //mengeprint ke layar berupa waktu yang dipakai saat menjalankan heuristic1
 		System.out.println();
 		
-		System.out.println("Solution with no Heuristic used.");
-		System.out.println("################################");
-		print(path2);
-		System.out.println("Time taken without using heuristic : " + timeTaken2);
+		System.out.println("Solution with no Heuristic used.");//mengeprint ke layar
+		System.out.println("################################");//mengeprint ke layar
+		print(path2);//mengeprint ke layar LinkedList dari path2
+		System.out.println("Time taken without using heuristic : " + timeTaken2);//mengeprint ke layar berupa waktu yang dipakai saat menjalankan heuristic2
 		
-		in.close();
+		in.close(); //memanggil method close dari scanner
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) { //kelas main dari RushHour
 		
-		RushHour THIS = new RushHour();
-		THIS.run();
+		RushHour THIS = new RushHour(); //menginisialisasi kelas RushHour dengan nama THIS
+		THIS.run(); //memanggil method run dari kelas RushHour
 	}
 }
