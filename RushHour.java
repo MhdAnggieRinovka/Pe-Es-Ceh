@@ -54,37 +54,37 @@ public class RushHour {
 	}
 
 	private void print(LinkedList<State> path) {
-		System.out.println("Number of optimal movements = " + (path.size()-1) + "\n");
-		int index = 0;
-		for(State s : path){
-			if(index == 0)
-				System.out.println("Initial state:");
-			else
-				System.out.println("Step " + index + ":");
-			s.print();
-			index ++;
+		System.out.println("Number of optimal movements = " + (path.size()-1) + "\n"); //print berapa banyak solusi yang ditemukan
+		int index = 0; //menghitung berapa banyak langkah yang telah ditemukan
+		for(State s : path){ //looping untuk object State yang bernama path
+			if(index == 0) // jika index = 0
+				System.out.println("Initial state:"); // maka print Intial state
+                        else // jika tidak
+				System.out.println("Step " + index + ":"); // maka print Step + index + :
+			s.print(); //pemanggilan method print di kelas State
+			index ++; //index ditambah 1
 		}
 	}
 
 	private LinkedList<State> getPath(HashMap<State, State> pred, State goal) {
 		
-		LinkedList<State> path =  new LinkedList<>();
-		State u = goal;
-		path.addFirst(u.clone());
-		while(pred.get(u) != null){
-			State parent = pred.get(u);
-			path.addFirst(parent.clone());
-			u = parent;
+		LinkedList<State> path =  new LinkedList<>(); //Membuat linklist bertipe State
+		State u = goal; //membuat variable baru yang bertipe State yang diisi dengan parameter yang bernama goal
+		path.addFirst(u.clone()); //untuk menambahkan State dibagian pertama node
+		while(pred.get(u) != null){ //ketika nilai pred yang isinya adalah variable u tidak sama dengan kosong
+			State parent = pred.get(u); // variable parent yang bertipe State diisi dengan pred yang memiliki isi variable u
+			path.addFirst(parent.clone()); //lalu node pertama pada variable path diisi dengan tiruan dari variable parent
+			u = parent; //variable u diisi dengan nilai dari variable parent
 		}
 
-		return path;
+		return path; // mengembalikan nilai path
 	}
 
 	private Puzzle readInput() {
 		
-		LinkedList<Car> cars = new LinkedList<>();
+		LinkedList<Car> cars = new LinkedList<>(); //Membuat linklist yang bertipe car
 		
-		String line = in.nextLine();
+		String line = in.nextLine(); //
 		int size = line.length();
 		char[][] grid = new char[size][size];
 		grid[0] = line.toCharArray();
