@@ -84,29 +84,37 @@ public class RushHour {
 		
 		LinkedList<Car> cars = new LinkedList<>(); //Membuat linklist yang bertipe car
 		
-		String line = in.nextLine(); //
-		int size = line.length();
-		char[][] grid = new char[size][size];
-		grid[0] = line.toCharArray();
-		for (int i = 1; i < grid.length; i++) {
+		String line = in.nextLine(); //menscan baris selanjutnya
+		int size = line.length(); //mengisi nilai size dengan nilai panjang string line di baris 87
+		char[][] grid = new char[size][size]; //membuat array of char, dengan panjang size yang didapat pada baris 88
+		grid[0] = line.toCharArray(); //memasukan array grid ke 0, dengan mengubah string line di baris 87, kedalam char
+		for (int i = 1; i < grid.length; i++) { //melakukan looping sebanyak panjang grid dengan tujuan memasukan baris per baris stirng line,
+												//kedalam grid ke i.
 			line = in.nextLine();
 			grid[i] = line.toCharArray();
 		}
 
-		for (int i = 0; i < grid.length; i++) {
+		for (int i = 0; i < grid.length; i++) { //melakukan looping
 			for (int j = 0; j < grid.length; j++) {
 				switch (grid[i][j]) {
-					case '+': grid[i+1][j] = '.'; cars.add(new Car(i, j, "v", 2)); break;
-					case '*': grid[i][j+1] = '.'; cars.add(new Car(i, j, "h", 2)); break;
-					case '@': grid[i+1][j] = '.'; grid[i+2][j] = '.'; cars.add(new Car(i, j, "v", 3)); break;
-					case '#': grid[i][j+1] = '.'; grid[i][j+2] = '.'; cars.add(new Car(i, j, "h", 3)); break;
-					// red car represented by '=' and added at top of list
-					case '=': grid[i][j+1] = '.'; cars.addFirst(new Car(i, j, "h", 2)); break;
+					case '+': grid[i+1][j] = '.'; cars.add(new Car(i, j, "v", 2)); break; //case akan dijalankan jika grid ke (i+1,j) adalah sebuah mobil vertical dengan size 2
+																						  //yang dilambangkan dengan '+', lalu memasukan car baru kedalam linkedlist dengan parameter x = i, y=j, orientasi 'v' = vertical
+																						  //dan ukuran mobil = 2
+					case '*': grid[i][j+1] = '.'; cars.add(new Car(i, j, "h", 2)); break;//case akan dijalankan jika grid ke (i,j+1) adalah sebuah mobil horizontal dengan size 2
+																						  //yang dilambangkan dengan '*', lalu memasukan car baru kedalam linkedlist dengan parameter x = i, y=j, orientasi 'h' = horizontal
+																						  //dan ukuran mobil = 2
+					case '@': grid[i+1][j] = '.'; grid[i+2][j] = '.'; cars.add(new Car(i, j, "v", 3)); break;//case akan dijalankan jika grid ke (i+1,j) adalah sebuah mobil vertical dengan size 3
+																						  //yang dilambangkan dengan '@', lalu memasukan car baru kedalam linkedlist dengan parameter x = i, y=j, orientasi 'v' = vertical
+																						  //dan ukuran mobil = 3
+					case '#': grid[i][j+1] = '.'; grid[i][j+2] = '.'; cars.add(new Car(i, j, "h", 3)); break;//case akan dijalankan jika grid ke (i,j+1) adalah sebuah mobil horizontal dengan size 3
+																						  //yang dilambangkan dengan '#', lalu memasukan car baru kedalam linkedlist dengan parameter x = i, y=j, orientasi 'v' = horizontal
+																						  //dan ukuran mobil = 3
+					case '=': grid[i][j+1] = '.'; cars.addFirst(new Car(i, j, "h", 2)); break; //case akan berjalan jika grid ke (i,j+1) = "=", dimana adalah sebuah red car
 				}
 			}
 		}
 		
-		return new Puzzle(size, cars);
+		return new Puzzle(size, cars); //kembaliannya memanggil sebuah kelas puzzle baru, dengan parameter size pada baris 88, dan cars yang berisi kumpulan string mobil yang telah ditambahkan pada looping baris 97 sampai 116
 	}
 	
 	private void run() { //method run dipanggil di method main pada kelas ini (RushHour)
@@ -121,7 +129,7 @@ public class RushHour {
 		
 		in = new Scanner(System.in); //menginisialisasi in dengan scanner
 		
-		Puzzle puzzle = readInput(); //membuat readInput puzzle
+		Puzzle puzzle = readInput(); //memasukan hasil dari method readInput() kedalam puzzle
 		
 		Heuristic heuristic1 = new Heuristic1(); //menginisialisasi Heuristic1
 		Heuristic heuristic2 = new Heuristic2(); //menginisialisasi Heuristic2 

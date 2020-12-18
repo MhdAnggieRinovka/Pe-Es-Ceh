@@ -20,11 +20,11 @@ public class State {
 	
 	public State(Puzzle puzzle) {
 		super();//memanggil kelas atas
-		this.puzzle = puzzle;// menginisialisasi object puzzle
-		this.cost = 10000000;// memasukkan nilai ke variable cost
+		this.puzzle = puzzle;// menginisialisasi object puzzle dengan puzzle
+		this.cost = 10000000;// memasukkan nilai (nilai awal saja) ke variable cost
 	}
 	
-	public ArrayList<State> getNeighbors(){
+	public ArrayList<State> getNeighbors(){ //method untuk mendapatkan tetangga dari sebuah car
 		ArrayList<State> neighbors = new ArrayList<>();
 		LinkedList<Car> cars = this.puzzle.cars; //membuat linkedList baru berobjekkan car yang berisikan cars dari kelas Puzzle
 		for (int i = 0; i < cars.size(); i++) { //selama posisi titik awal lebih kecil dari mobil
