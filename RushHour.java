@@ -49,8 +49,8 @@ public class RushHour {
 		return getPath(predecessor, goal); //mereturn getPath dengan parameter hashmap predecessor dan state goal
 	}
 
-	private boolean contains(HashMap<String, Boolean> visited, State v) {
-		return visited.containsKey(v.toString());
+	private boolean contains(HashMap<String, Boolean> visited, State v) {//metode ini cek apakah ada value atau tidak
+		return visited.containsKey(v.toString());// metode ini mengembalikan nilai boolean dari pengecekan isi value dari kelas State
 	}
 
 	private void print(LinkedList<State> path) {
