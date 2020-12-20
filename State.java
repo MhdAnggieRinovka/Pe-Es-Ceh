@@ -10,6 +10,7 @@ import java.util.LinkedList;
 /**
  *
  * @author Denise ,Mhd Anggie,  Rajasa Cikal
+ * referensi 'https://cutt.ly/IhVzvlk'
  */
 
 public class State {
