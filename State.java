@@ -32,16 +32,16 @@ public class State {
 			if(car.isVertical()){ //jika posisi dari mobil adalah Vertikal
 				LinkedList<Car> newcars = cloneCars(cars); //membuat linkedList berobjekan Car dengan memanggil cloneCars 
 				Car newcar = newcars.get(i); //membuat variable baru untuk mendapat posisi yang available 
-				while(puzzle.canMoveDown(newcar)){ //looping selama car bisa berpindah ke bawah
-					newcar.moveDown(); //newcar akan berpindah ke bawah
+				while(puzzle.canMoveDown(newcar)){ //looping selama car bisa berpindah ke bawah, pengecekan dengan memanggil canMoveDown dari kelas puzzle
+					newcar.moveDown(); //newcar akan berpindah ke bawah, dengan memanggil moveDown di dalam kelas car
 					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars)));// newcar akan ditambahkan menjadi neighboor baru dalam puzzle
 					newcars = cloneCars(newcars);//memanggil variable newcars baru untuk dimasukkan kedalam newcars
 					newcar = newcars.get(i); //untuk mendapat posisi yang available
 				}
 				newcars = cloneCars(cars);//memanggil variable newcars baru untuk dimasukkan kedalam newcars
 				newcar = newcars.get(i); //untuk mendapat posisi yang available
-				while(puzzle.canMoveUp(newcar)){ //looping selama car bisa berpindah ke atas
-					newcar.moveUp(); //newcar akan berpindah ke atas
+				while(puzzle.canMoveUp(newcar)){ //looping selama car bisa berpindah ke atas, pengecekan dengan memanggil canMoveUp dari kelas puzzle
+					newcar.moveUp(); //newcar akan berpindah ke atas, dengan memanggil moveUp di dalam kelas car
 					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars)));// newcar akan ditambahkan menjadi neighboor baru dalam puzzle
 					newcars = cloneCars(newcars);//memanggil variable newcars baru untuk dimasukkan kedalam newcars
 					newcar = newcars.get(i); //untuk mendapat posisi yang available
@@ -50,16 +50,16 @@ public class State {
 			else if(car.isHorizontal()){ //jika posisi dari mobil adalah Horizontal
 				LinkedList<Car> newcars = cloneCars(cars); //membuat linkedList berobjekan Car dengan memanggil cloneCars 
 				Car newcar = newcars.get(i); //membuat variable baru untuk mendapat posisi yang available 
-				while(puzzle.canMoveRight(newcar)){ //looping selama newcar bisa berpindah ke kanan didalam puzzle
-					newcar.moveRight(); //newcar akan berpindah ke sebelah kanan
+				while(puzzle.canMoveRight(newcar)){ //looping selama newcar bisa berpindah ke kanan didalam puzzle, pengecekan dengan memanggil canMoveRight dari kelas puzzle
+					newcar.moveRight(); //newcar akan berpindah ke sebelah kanan, dengan memanggil moveRight di dalam kelas car
 					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars)));// newcar akan ditambahkan menjadi neighboor baru dalam puzzle
 					newcars = cloneCars(newcars);//memanggil variable newcars baru untuk dimasukkan kedalam newcars
 					newcar = newcars.get(i); //untuk mendapat posisi yang available
 				}
 				newcars = cloneCars(cars); //membuat car baru
 				newcar = newcars.get(i); //untuk mendapat posisi yang available 
-				while(puzzle.canMoveLeft(newcar)){ //looping selama newcar bisa berpindah ke kiri didalam puzzle
-					newcar.moveLeft(); //newcar akan berpindah ke sebelah kiri 
+				while(puzzle.canMoveLeft(newcar)){ //looping selama newcar bisa berpindah ke kiri didalam puzzle, pengecekan dengan memanggil canMoveLeft dari kelas puzzle
+					newcar.moveLeft(); //newcar akan berpindah ke sebelah kiri , dengan memanggil moveLeft di dalam kelas car
 					neighbors.add(new State(new Puzzle(this.puzzle.gridSize, newcars))); // newcar akan ditambahkan menjadi neighboor baru dalam puzzle
 					newcars = cloneCars(newcars); //memanggil variable newcars untuk dimasukkan kedalam newcars
 					newcar = newcars.get(i); //untuk mendapat posisi yang available
@@ -67,7 +67,7 @@ public class State {
 			}
 		}
 		
-		return neighbors;
+		return neighbors; //mengembalikan neighboor yang merupakan ArrayList dari neighbors yang telah ditambahkan sebelumnya.
 	}
 	
 	private LinkedList<Car> cloneCars(LinkedList<Car> cars) {//membuat object-object cars
@@ -75,7 +75,7 @@ public class State {
 		for(Car car : cars){// loop object car lalu masukkan ke variable yang bernama cars
 			newcars.add(car.clone());// menambahkan object baru bertipe cars ke newCars
 		}
-		return newcars;// mengembalikan newCars
+		return newcars;// mengembalikan LinkedList yang berisi newCars yang berisi clone dari car
 	}
 
 
