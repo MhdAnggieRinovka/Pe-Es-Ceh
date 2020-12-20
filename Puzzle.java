@@ -13,18 +13,18 @@ import java.util.LinkedList;
 
 public class Puzzle {
 	
-	int gridSize; //menyatakan ukuran puzzle
+	int gridSize; //membuat atribut int untuk ukuran puzzle
 	LinkedList<Car> cars; //menyatakan object object car yang ada
 	Car crashedCar; //membuat object baru yang berupa mobil penghalang
 
 	public Puzzle(int gridSize, LinkedList<Car> cars) {
 		super();//memanggil kelas atas
-		this.gridSize = gridSize; //menginisialisasi ukuran puzzle
-		this.cars = cars; //menginisialisasi car
+		this.gridSize = gridSize; //menginisialisasi ukuran puzzle dengan gridSize yang dikimkan dari kelas RushHour 
+		this.cars = cars; //menginisialisasi car dengan car yang dikirimkan dari kelas RushHour
 	}
 	
 	public Car getRedCar(){ //fungsi ini mendapatkan object redCar
-		return cars.get(0); //mengembalikan posisi awal dari redCar
+		return cars.get(0); //mengembalikan car pada posisi ke 0 karena merupakan PriorityQueue
 	}
 	
 	public boolean canMoveDown(Car car) {// menentukan apakah bisa bergerak kebawah
